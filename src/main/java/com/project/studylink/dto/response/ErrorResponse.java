@@ -1,4 +1,4 @@
-package com.project.studylink.dto;
+package com.project.studylink.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.project.studylink.enums.ErrorCode;
