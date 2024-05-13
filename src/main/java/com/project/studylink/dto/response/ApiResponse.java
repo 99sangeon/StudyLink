@@ -1,4 +1,4 @@
-package com.project.studylink.dto;
+package com.project.studylink.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
@@ -9,10 +9,7 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ApiResponse<T> {
 
-    private static final String SUCCESS = "success";
-    private static final String ERROR = "error";
-
-    private String status;
+    private boolean success;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
@@ -22,20 +19,20 @@ public class ApiResponse<T> {
 
     public static <T> ApiResponse<T> success() {
         return ApiResponse.<T>builder()
-                .status(SUCCESS)
+                .success(true)
                 .build();
     }
 
     public static <T> ApiResponse<T> success(T data) {
         return ApiResponse.<T>builder()
-                .status(SUCCESS)
+                .success(true)
                 .data(data)
                 .build();
     }
 
     public static <T> ApiResponse<T> error(ErrorResponse error) {
         return ApiResponse.<T>builder()
-                .status(ERROR)
+                .success(false)
                 .error(error)
                 .build();
     }
