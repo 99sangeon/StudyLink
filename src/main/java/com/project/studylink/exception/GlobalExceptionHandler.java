@@ -1,7 +1,7 @@
 package com.project.studylink.exception;
 
-import com.project.studylink.dto.ApiResponse;
-import com.project.studylink.dto.ErrorResponse;
+import com.project.studylink.dto.response.ApiResponse;
+import com.project.studylink.dto.response.ErrorResponse;
 import com.project.studylink.enums.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
