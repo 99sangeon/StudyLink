@@ -29,12 +29,9 @@ public class RedisServiceImpl implements RedisService{
     }
 
     @Override
-    public void validateValue(String key, String value) throws Exception {
+    public boolean validateValue(String key, String value) {
         Optional<String> findValue = findValue(key);
-
-        if(findValue.isEmpty() || !findValue.get().equals(value)) {
-            throw new Exception("값이 일치하지 않습니다.");
-        }
+        return findValue.isPresent() && findValue.get().equals(value);
     }
 
     @Override

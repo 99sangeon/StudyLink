@@ -73,11 +73,11 @@ class EmailServiceImplTest {
 
     @Test
     @DisplayName("이메일 인증 성공")
-    void validateAuthNum_success() throws Exception {
+    void validateAuthNum_success() {
         // given
         EmailAuthRequest emailAuthRequest = EmailAuthRequest.builder().email("test@example.com").build();
 
-        willDoNothing().given(redisService).validateValue(emailAuthRequest.getEmail(), emailAuthRequest.getAuthNum());
+        given(redisService.validateValue(emailAuthRequest.getEmail(), emailAuthRequest.getAuthNum())).willReturn(true);
 
         // when
         emailService.validateAuthNum(emailAuthRequest);
@@ -88,11 +88,11 @@ class EmailServiceImplTest {
 
     @Test
     @DisplayName("이메일 인증 실패")
-    void validateAuthNum_fail() throws Exception {
+    void validateAuthNum_fail() {
         // given
         EmailAuthRequest emailAuthRequest = EmailAuthRequest.builder().email("test@example.com").build();
 
-        willThrow(new Exception()).given(redisService).validateValue(emailAuthRequest.getEmail(), emailAuthRequest.getAuthNum());
+        given(redisService.validateValue(emailAuthRequest.getEmail(), emailAuthRequest.getAuthNum())).willReturn(false);
 
         // when
         BusinessException exception =

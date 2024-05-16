@@ -1,17 +1,16 @@
 package com.project.studylink.controller.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.studylink.config.SecurityConfig;
 import com.project.studylink.dto.request.MemberRequest;
 import com.project.studylink.exception.BusinessException;
 import com.project.studylink.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -26,9 +25,8 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(MemberController.class)
+@WebMvcTest(controllers = MemberController.class, excludeAutoConfiguration = SecurityAutoConfiguration.class)
 @AutoConfigureRestDocs
-@Import(SecurityConfig.class)
 class MemberControllerTest {
 
     private final static String API_V1 = "/api/v1/members";

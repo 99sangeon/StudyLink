@@ -7,7 +7,7 @@ public interface RedisService {
 
     Optional<String> findValue(String key);
 
-    void validateValue(String key, String value) throws Exception;
+    boolean validateValue(String key, String value);
 
     void deleteKey(String key);
 }
