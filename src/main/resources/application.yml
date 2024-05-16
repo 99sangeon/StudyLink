@@ -37,6 +37,14 @@ spring:
           starttls:
             enable: true
 
+  jwt:
+    secret:
+      access-token: ${ACCESS_TOKEN_SECRET}
+      refresh-token: ${REFRESH_TOKEN_SECRET}
+    expiration:
+      access-token: 3600000 # 1시간
+      refresh-token: 604800000 # 1주일
+
 logging:
   level:
     org.hibernate.SQL: debug
