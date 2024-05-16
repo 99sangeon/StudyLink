@@ -60,9 +60,7 @@ public class EmailServiceImpl implements EmailService{
 
     @Override  // 회원가입 최종 검증 과정에서 이메일 인증
     public void validateAuthNum(String email, String authNum) {
-        try {
-            redisService.validateValue(email, authNum);
-        } catch (Exception e) {
+        if(!redisService.validateValue(email, authNum)) {
             throw new BusinessException(ErrorCode.EMAIL_AUTH_FAIL);
         }
     }
