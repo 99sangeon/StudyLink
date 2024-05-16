@@ -5,6 +5,8 @@ import com.project.studylink.dto.response.ErrorResponse;
 import com.project.studylink.enums.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,7 +25,7 @@ public class GlobalExceptionHandler{
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<?> handleCustomException(BusinessException ex) {
-        log.warn("handleBusinessException : {}", ex.toString());
+        log.warn("handleBusinessException : {} -> ErrorCode : {}", ex.toString(), ex.getErrorCode().name());
         return handleExceptionInternal(ex.getErrorCode());
     }
 
@@ -34,9 +36,21 @@ public class GlobalExceptionHandler{
     }
 
     @ExceptionHandler(NoResourceFoundException.class)
-    protected ResponseEntity<?> handleNoResourceFoundException(NoResourceFoundException ex) {
+    public ResponseEntity<?> handleNoResourceFoundException(NoResourceFoundException ex) {
         log.warn("handleNoResourceFoundException : {}", ex.toString());
         return handleExceptionInternal(NOT_FOUND_RESOURCE);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<?> handleBadCredentialsException(BadCredentialsException ex) {
+        log.warn("handleBadCredentialsException : {}", ex.toString());
+        return handleExceptionInternal(LOGIN_FAIL);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        log.warn("handleHttpMessageNotReadableException : {}", ex.toString());
+        return handleExceptionInternal(HTTP_MESSAGE_NOT_READABLE);
     }
 
     @ExceptionHandler(Exception.class)
