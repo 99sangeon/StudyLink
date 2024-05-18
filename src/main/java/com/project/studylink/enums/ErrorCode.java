@@ -18,6 +18,7 @@ public enum ErrorCode {
     NOT_LOGIN(HttpStatus.UNAUTHORIZED, "로그인 후 이용해주세요."),
     REFRESH_TOKEN_VALIDATE_FAIL(HttpStatus.UNAUTHORIZED, "리프레시 토큰이 유효하지 않습니다. 다시 로그인 해주세요."),
     REFRESH_TOKEN_NOT_IN_REDIS(HttpStatus.UNAUTHORIZED, "리프레시 토큰이 유효하지 않습니다. 다시 로그인 해주세요."),
+    OAUTH2_LOGIN_FAIL(HttpStatus.UNAUTHORIZED, "SNS 로그인에 실패했습니다."),
 
     // 403
     ACCESS_DENIED(HttpStatus.FORBIDDEN, "해당 컨텐츠를 이용할 권한이 없습니다."),

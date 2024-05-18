@@ -7,10 +7,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 @Entity
 @Getter
 @NoArgsConstructor
+@DynamicInsert
 public class Member extends BaseTimeEntity{
 
     @Id
@@ -22,39 +25,47 @@ public class Member extends BaseTimeEntity{
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
     @Setter
+    @Column(nullable = false)
     private String password;
 
+    @Setter
     @Column(nullable = false)
     private String email;
 
+    @Setter
     @Column(nullable = false)
     private String nickname;
 
+    @Setter
     @Column(nullable = false)
+    @ColumnDefault("''")
     private String introduction;
 
-    @Column
     @Setter
+    @Column(nullable = false)
+    @ColumnDefault("'default_profile.jpg'")
     private String profileImg;
 
-    @Column(nullable = false)
     @Setter
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(nullable = false)
     @Setter
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Sns sns;
 
     @Builder
-    public Member(String username, String password, String email, String nickname, String introduction) {
+    public Member(String username, String password, String email, String nickname, String introduction, String profileImg, Role role, Sns sns) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.nickname = nickname;
         this.introduction = introduction;
+        this.profileImg = profileImg;
+        this.role = role;
+        this.sns = sns;
     }
 }

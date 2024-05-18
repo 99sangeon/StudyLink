@@ -28,12 +28,7 @@ public class AuthServiceImpl implements AuthService{
         Authentication authentication = authenticationManagerBuilder.getObject()
                 .authenticate(loginRequest.toAuthenticationToken());
 
-        // 토큰 발급 및 리프레시 토큰 레디스에 저장
-        String accessToken  = jwtProvider.generateAccessToken(authentication);
-        String refreshToken  = jwtProvider.generateRefreshToken(authentication);
-        redisService.save(REDIS_KEY_PREFIX + authentication.getName(), refreshToken, tokenExpiration);
-
-        return new JwtResponse(accessToken, refreshToken);
+        return issueAccessAndRefreshToken(authentication);
     }
 
     @Override
@@ -51,10 +46,16 @@ public class AuthServiceImpl implements AuthService{
         }
 
         // 토큰 발급 및 새로운 리프레시 토큰 레디스에 저장
-        String accessToken  = jwtProvider.generateAccessToken(authentication);
-        String newRefreshToken  = jwtProvider.generateRefreshToken(authentication);
-        redisService.save(REDIS_KEY_PREFIX + authentication.getName(), newRefreshToken, tokenExpiration);
+        return issueAccessAndRefreshToken(authentication);
+    }
 
-        return new JwtResponse(accessToken, newRefreshToken);
+    @Override
+    public JwtResponse issueAccessAndRefreshToken(Authentication authentication) {
+        // 토큰 발급 및 리프레시 토큰 레디스에 저장
+        String accessToken  = jwtProvider.generateAccessToken(authentication);
+        String refreshToken  = jwtProvider.generateRefreshToken(authentication);
+        redisService.save(REDIS_KEY_PREFIX + authentication.getName(), refreshToken, tokenExpiration);
+
+        return new JwtResponse(accessToken, refreshToken);
     }
 }
