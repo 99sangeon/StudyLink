@@ -15,6 +15,11 @@ public class ErrorResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, String> fields;
 
+    public ErrorResponse(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
     public ErrorResponse(ErrorCode errorCode) {
         this.code = errorCode.name();
         this.message = errorCode.getMessage();
