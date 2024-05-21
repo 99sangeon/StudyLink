@@ -10,7 +10,8 @@ public enum ErrorCode {
 
     // 400
     FIELD_ERROR(HttpStatus.BAD_REQUEST, "입력하신 내용을 다시 확인해주세요."),
-    HTTP_MESSAGE_NOT_READABLE(HttpStatus.BAD_REQUEST, "요청하신 값을 읽을 수 없습니다."),
+    EXCEL_NOT_READABLE(HttpStatus.BAD_REQUEST, "엑셀 파일을 읽을 수 없습니다. 파일 확장자나 파일 상태를 확인해주세요."),
+    REGION_CELL_NOT_READABLE(HttpStatus.BAD_REQUEST, "최상단 행에 \'시도명\', \'시군구명\', \'읍면동명\' 셀이 있는지 확인해주세요."),
 
     // 401
     EMAIL_AUTH_FAIL(HttpStatus.UNAUTHORIZED, "이메일 인증에 실패했습니다. 입력하신 내용을 다시 확인해주세요."),
