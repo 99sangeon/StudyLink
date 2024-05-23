@@ -26,9 +26,11 @@ public enum ErrorCode {
 
     // 404
     NOT_FOUND_RESOURCE(HttpStatus.NOT_FOUND, "요청하신 url을 찾을 수 없습니다."),
+    NOT_FOUND_CATEGORY(HttpStatus.NOT_FOUND, "요청하신 카테고리를 찾을 수 없습니다."),
 
     // 409
     EMAIL_DUPLICATE(HttpStatus.CONFLICT, "이미 가입된 아이디(로그인 전용 이메일)입니다."),
+    CATEGORY_NAME_DUPLICATE(HttpStatus.CONFLICT, "이미 등록된 카테고리입니다."),
 
     // 500
     EMAIL_SEND_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "이메일 전송에 실패했습니다. 다시 한번 시도해주세요."),
